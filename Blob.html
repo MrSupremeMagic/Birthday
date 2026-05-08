@@ -5,6 +5,12 @@
 <title>Celebrate!</title>
 
 <style>
+	body{
+		margin:0;
+		padding:0;
+		overflow: hidden;
+	}
+
 	.main{
 		padding-top:200px;
 		font-size:300%;
@@ -24,9 +30,101 @@
 <div class="main">
 	<div></div>
 		<p>Happy Birthday!</p>
-		<img src="BirthdayBlob.png" height=200px>
+		<img id="blob" src="BirthdayBlob.png" height=200px>
+		<p id="clickCount" style="visibility:hidden;">0</p>
+		<audio id="honk" src="horn.mp3" preload="auto"></audio>
+		<div id="radio" style="visibility:hidden;">
+			<p>Is this annoying yet?</p>
+			<form>
+				<input onclick="closePage()" type="radio" name="annoyance" value="Yes">
+				<label for="Yes">Yes</label>
+				<input type="radio" name="annoyance" value="No">
+				<label for="No">No</label>
+				<input type="radio" name="annoyance" value="A little">
+				<label onclick="betterGame()" for="A little">A little</label>
+			</form>
+		</div>
+		<img src="transparent.png" id="sneaky" width=500px style="z-index:100; transform:translate(-400px, 200px);">
 	<div></div>
 </div>
+
+<script>
+let clicks = 0;
+const clickCount = document.getElementById("clickCount");
+const blob = document.getElementById("blob");
+const honk = document.getElementById("honk");
+const radio = document.getElementById("radio");
+const sneaky = document.getElementById("sneaky");
+
+blob.addEventListener("click", function() {
+	if (clicks==0){
+		clickCount.style.visibility="visible";
+	}
+		const blobmation = blob.animate(
+	[
+		{transform: 'rotate(20deg)'},
+		{transform: 'rotate(0deg)'}
+	],
+	{
+		duration: 300
+	}
+);
+	clicks+=1
+	clickCount.innerText=clicks
+	
+	if ((clicks%10)==0){
+		honk.play();
+	}
+	
+	if (clicks==50){
+		radio.style.visibility="visible";
+	}
+	
+	if ((clicks%15)==0){
+		playSneakyUp();
+	}
+});
+
+function closePage(){
+	window.close();
+}
+
+function betterGame(){
+	window.location.href = "https://evanspace.co.uk/";
+}
+
+function playSneakyUp(){
+	const sneakyGlance = sneaky.animate(
+		[
+			{transform: 'translate(-400px, 200px)'},
+			{transform: 'translate(-400px, -400px)'}
+		],
+		{
+			duration:2000
+		}
+	);
+	sneakyGlance.onfinish = playSneakyDown;
+}
+
+function glance(){
+	setTimeout(() => {
+		console.log("glancing")
+			playSneakyDown();
+	}, 1500);
+}
+
+function playSneakyDown(){
+	const sneakyGlance = sneaky.animate(
+		[
+			{transform: 'translate(-400px, -400px)'},
+			{transform: 'translate(-400px, 200px)'}
+		],
+		{
+			duration:1200
+		}
+	);
+}
+</script>
 </body>
 
 </html>
