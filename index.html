@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Birthday Surprise</title>
+<style>
+	body{
+		margin:0;
+		padding:0;
+		overflow: hidden;
+	}
+	
+	.main{
+		display:grid;
+		grid-template-columns:2 8 2;
+		text-align:center;
+		justify-items:center;
+		align-items:center;
+	}
+	.content{
+		transform:scale(1);
+		transform:translate(0,0);
+		animation-name: myAnimation;
+		animation-duration: 2s;
+	}
+	
+	.contentHeading{
+		font-size:300%;
+		font-family: coppeplate, fantasy;
+		padding: 20px;
+		border: 10px ridge #147cb3;
+		background-color: #E0E0E0;
+	}
+	.contentBody{
+		font-size:150%;
+		font-family: "Times New Roman", Times, serif;
+		border: 1px solid black;
+		background-color: #F5F5F5;
+		padding-bottom:10px;
+	}
+	
+	.input-container input[type="text"] {
+		border-radius: 0px;
+		border: 0px;
+		background-color: #E0E0E0;
+		width:388px;
+		height:40px;
+		font-size:100%;
+		placeholder-color:black;
+		font-family:"Algerian", fantasy;
+		text-align: center;
+		transition: border 0.1s linear;
+	}
+	
+	.pointyMcPointface{
+		visibility:hidden;
+		transform: translate(450px, -550px);
+		font-family:Copperplate, fantasy;
+		font-size:150%;
+	}
+	
+	::placeholder {
+		color: red;
+		font-family:"Trebuchet MS", sans-serif;
+		opacity: 0.4; /* Firefox */
+	}
+		
+@keyframes myAnimation {
+  from {transform: scale(0);
+  }
+  to {transform:scale(1)
+  }
+}		
+</style>
+
+</head>
+
+<body>
+	<div class="main">
+		<div style="padding-top:80px;"></div>
+		<div class="content">
+			<div class="contentHeading">
+				<p>🚨 ! A L E R T ! 🚨</p>
+			</div>
+			<div class="contentBody">
+				<img src="BirthdayPic.jpeg" height=450px>
+				<p>Enter Name: </p>
+				<div class = "input-container">
+					<input type="text" spellcheck="false" id="NameTag" placeholder="YOUR NAME GOES HERE">
+				</div>
+				<button onclick="submitName()">Submit</button>
+			</div>
+		</div>
+		<div>
+		<div class="pointyMcPointface" id= "pointyMcPointface">
+			<img src="THATS YOU.png">
+			<p style="transform: translate(80px);">Thats YOU!</p>
+		</div>
+		</div>
+
+<script>
+function submitName(){
+	const arrow = document.getElementById("pointyMcPointface");
+	arrow.style.visibility="visible";
+	const arrowAnimation = arrow.animate(
+		[
+			{transform: 'rotate(150deg)', transform: 'translate(0px,0px)'},
+			{transform: 'rotate(0deg)', transform: 'translate(450px, -550px)'}
+		],
+		{
+			duration: 500
+		}
+	);
+	arrowAnimation.play();
+	arrowAnimation.onfinish = arrowAnimationFinished;
+}
+
+
+function arrowAnimationFinished(){
+	setTimeout(() => {
+		console.log("counting down")
+		startCountdown();
+	}, 2000);
+}
+
+function startCountdown(){
+	window.location.href = "Blob.html";
+}
+
+</script>
+
+
+</body>
+</html>
